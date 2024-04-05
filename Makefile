@@ -16,5 +16,10 @@ ledit: $(OBJECTS)
 
 clean:
 	rm $(SOURCEDIR)/*.o
+	rm */*.tmp
 	rm ledit
+
+format:
+	clang-format -i $(SOURCEDIR)/*.h
+	clang-format -i $(SOURCEDIR)/*.c
 

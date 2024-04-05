@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     }
 
     const char *const filename = argv[1];
-    
+
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("ERROR: Unable to open file '%s'\n", filename);
@@ -43,11 +43,18 @@ int main(int argc, char *argv[]) {
         read_file_into_buffer(file_buffer, file);
         render_buffer(file_buffer);
 
-        insert_line_into_buffer(file_buffer, 100, "LIAM WAS HERE\n");
+        insert_line_into_buffer(file_buffer, 100, "TEST STRING 1\n");
+        insert_line_into_buffer(file_buffer, 0, "TEST STRING 2\n");
+        insert_line_into_buffer(file_buffer, 60, "TEST STRING 3\n");
 
         render_buffer(file_buffer);
 
-        write_buffer_to_file(file_buffer, "newfile.out");
+        // '.tmp' + null byte
+        char newname[strlen(filename) + 5];
+        memset(newname, 0, sizeof(newname));
+
+        snprintf(newname, sizeof(newname), "%s.tmp", filename);
+        write_buffer_to_file(file_buffer, newname);
         destroy_buffer(file_buffer);
     }
 
